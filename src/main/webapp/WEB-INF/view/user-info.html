@@ -21,7 +21,16 @@
     <label for="email">Email</label>
     <input type="text" th:field="*{email}" id="email">
     <br/><br/>
+    <label for="password">Password</label>
+    <input type="password" th:field="*{password}" id="password">
+    <br/><br/>
     <input type="submit" value="Update">
+    <br/><br/>
+
 </form>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
+
 </body>
 </html>

@@ -1,32 +1,65 @@
 package web.controller;
 
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
+import web.entity.Role;
 import web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import web.service.RoleService;
 import web.service.UserService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MyController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
+    @GetMapping(value = "/login")
+    public String getLoginPage() {
+        return "login";
+    }
+
     @ModelAttribute("newUser")
     public User getPerson(){
         return new User();
     }
-    @RequestMapping("/")
+
+    @RequestMapping("/admin")
     public String showAllUsers(Model model){
         List<User> allUsers = userService.getAllUsers();
         model.addAttribute("allUsers", allUsers);
+        model.addAttribute("roles", roleService.getAllRoles());
 
         return "all-users";
 
     }
-    @RequestMapping("/addNewUser")
+
+    //@RequestMapping("/admin")
+    //public String showAllUsersAdmin(Model model){
+    //    List<User> allUsers = userService.getAllUsers();
+    //    model.addAttribute("allUsers", allUsers);
+
+    //    return "all-users";
+
+    //}
+
+    @GetMapping("/user")
+    public String showUserInfo(@CurrentSecurityContext(expression = "authentication.principal") User principal,
+                               Model model) {
+        model.addAttribute("user", principal);
+
+        return "user-info";
+    }
+
+    @RequestMapping("/admin/addNewUser")
     public String addNewUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
@@ -36,28 +69,30 @@ public class MyController {
     }
 
     @RequestMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User user) {
+    public String saveUser(@ModelAttribute("user") User user, @RequestParam("roles") String[] rolesNames) {
+        Set <Role> setOfRoles = roleService.getSetOfRoles(rolesNames);
+        user.setRoles(setOfRoles);
         userService.saveUser(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @PatchMapping("/{id}")
     public String updatePerson(@ModelAttribute("user") User updateuser){
         userService.saveUser(updateuser);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/admin/{id}/edit")
     public String updateInfo(@ModelAttribute("id") int id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "user-info";
     }
 
-    @RequestMapping("/deleteUser")
+    @RequestMapping("/admin/deleteUser")
     public String deleteUser(@ModelAttribute("id") int id) {
         userService.deleteUser(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }

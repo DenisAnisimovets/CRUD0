@@ -22,12 +22,12 @@
     <td th:utext="${user.getAge()}"></td>
     <td th:utext="${user.getEmail()}"></td>
     <td>
-      <form th:method="DELETE" th:action="@{/deleteUser(id=${user.getId()})}">
+      <form th:method="DELETE" th:action="@{/admin/deleteUser(id=${user.getId()})}">
         <input type="submit" value="Delete">
       </form>
     </td>
     <td>
-      <a th:href="@{/{id}/edit(id=${user.getId()})}">Edit</a>
+      <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">Edit</a>
     </td>
   </tr>
 </table>
@@ -49,7 +49,24 @@
   <input type="text" th:field="*{email}" id="email"/>
   <br/>
   <br/>
+  <label for="password">Password</label>
+  <br/>
+  <br/>
+  <input type="password" th:field="*{password}" id="password"/>
+  <br/>
+  <br/>
+  <input type=checkbox id=adminId name=roles[] value="ROLE_ADMIN">
+  <label for="adminId">Админ</label>
+  <input type=checkbox id=userId name=roles[] value="ROLE_USER">
+  <label for="userId">User</label>
+  <br/>
+  <br/>
   <input type="submit" value="Create!"/>
+</form>
+<br/>
+<br/>
+<form th:action="@{/logout}" method="POST">
+  <input type="submit" value="Logout"/>
 </form>
 </body>
 </html>

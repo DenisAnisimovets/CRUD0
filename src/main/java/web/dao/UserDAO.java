@@ -12,4 +12,7 @@ public interface UserDAO {
     public User getUserById(int id);
 
     public void deleteUser(int id);
+
+    public User getUserByName(String name);
+
 }
