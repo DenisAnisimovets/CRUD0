@@ -1,5 +1,7 @@
 package web.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import web.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,9 @@ public class UserDAOImpl implements UserDAO {
     @PersistenceContext()
     private EntityManager entityManager;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public List<User> getAllUsers() {
@@ -21,6 +26,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.merge(user);
     }
 
@@ -29,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
         User user = getUserById(updatedUser.getId());
         user.setName(updatedUser.getName());
         user.setLastname(updatedUser.getLastname());
-        user.setPassword(updatedUser.getPassword());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setAge(updatedUser.getAge());
         user.setEmail(updatedUser.getEmail());
         entityManager.merge(user);
