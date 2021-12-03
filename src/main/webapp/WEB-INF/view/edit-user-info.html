@@ -5,7 +5,7 @@
     <title>Update people</title>
 </head>
 <body>
-<form th:method="patch" th:action="@{/saveUser}" th:object="${user}">
+<form th:method="patch" th:action="@{/updateUser}" th:object="${user}">
     <label for="id">Id</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="id">
     <br/><br/>
@@ -23,6 +23,8 @@
     <br/><br/>
     <label for="password">Password</label>
     <input type="password" th:field="*{password}" id="password">
+    <br/><br/>
+    <input type="submit" value="Update">
     <br/><br/>
 
 </form>

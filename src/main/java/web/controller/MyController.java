@@ -64,15 +64,22 @@ public class MyController {
         User user = new User();
         model.addAttribute("user", user);
 
-        return "user-info";
+        return "edit-user-info";
 
     }
 
     @RequestMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User user, @RequestParam("roles") String[] rolesNames) {
-        Set <Role> setOfRoles = roleService.getSetOfRoles(rolesNames);
-        user.setRoles(setOfRoles);
+    public String saveUser(@ModelAttribute("user") User user, @RequestParam("selectedRole") String rolesName) {
+        Set<Role> setRoles= new HashSet<Role>();
+        setRoles.add(roleService.getRoleByName(rolesName));
+        user.setRoles(setRoles);
         userService.saveUser(user);
+        return "redirect:/admin";
+    }
+
+    @RequestMapping("/updateUser")
+    public String saveUser(@ModelAttribute("user") User user) {
+        userService.updateUser(user);
         return "redirect:/admin";
     }
 
@@ -87,7 +94,7 @@ public class MyController {
     public String updateInfo(@ModelAttribute("id") int id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "user-info";
+        return "edit-user-info";
     }
 
     @RequestMapping("/admin/deleteUser")

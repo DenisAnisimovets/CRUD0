@@ -23,5 +23,7 @@ public interface RoleDAO {
 
     HashSet<Role> getSetOfRoles(String[] roleSet);
 
-    public Set<Role> setRoleByName(String name, String[] rolesName);
+    //public Set<Role> getSetOfRoles(String[] roleSet);
+
+    public Set<Role> setRoleByName(String name);
 }

@@ -67,7 +67,8 @@ public class RoleDAOImpl implements RoleDAO {
         entityManager.remove(getRoleById(id));
     }
 
-    public HashSet getSetOfRoles(String[] rolesNames) {
+
+    public HashSet<Role> getSetOfRoles(String[] rolesNames) {
         Set<Role> roleSet = new HashSet<>();
         for (String role : rolesNames) {
             roleSet.add(getRoleByName(role));
@@ -75,12 +76,11 @@ public class RoleDAOImpl implements RoleDAO {
         return (HashSet) roleSet;
     }
 
-    public Set<Role> setRoleByName(String name, String[] rolesName) {
+
+    public Set<Role> setRoleByName(String name) {
         Set<Role> roleSet = new HashSet<Role>();
-        if (rolesName != null) {
-            for (String roleName : rolesName) {
-                roleSet.add(getRoleByName(roleName));
-            }
+        if (name != null) {
+                roleSet.add(getRoleByName(name));
         }
         return roleSet;
     }

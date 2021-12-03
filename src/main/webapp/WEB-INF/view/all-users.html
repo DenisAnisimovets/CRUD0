@@ -55,10 +55,16 @@
   <input type="password" th:field="*{password}" id="password"/>
   <br/>
   <br/>
-  <input type=checkbox id=adminId name=roles[] value="ROLE_ADMIN">
-  <label for="adminId">Админ</label>
-  <input type=checkbox id=userId name=roles[] value="ROLE_USER">
-  <label for="userId">User</label>
+  <div>
+    <td>Add role to user</td>
+    <td>
+      <select th:name="selectedRole">
+        <option value="">Select role</option>
+        <option th:each="role : ${roles}"
+                th:text="${role.role}"/>
+      </select>
+    </td>
+  </div>
   <br/>
   <br/>
   <input type="submit" value="Create!"/>

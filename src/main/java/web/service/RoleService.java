@@ -20,8 +20,8 @@ public interface RoleService {
 
         void removeRole(long id);
 
-        HashSet<Role> getSetOfRoles(String[] roleSet);
+        Set<Role> getSetOfRoles(String[] roleSet);
 
-        Set<Role> setRoleByName(String name, String[] rolesName);
+        Set<Role> setRoleByName(String name);
 
 }
