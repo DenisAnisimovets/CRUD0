@@ -45,7 +45,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    /*public User(int id, String name, String lastname, int age, String email, String password, Set<Role> roles) {
+    public User(int id, String name, String lastname, int age, String email, String password, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.lastName = lastname;
@@ -55,7 +55,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-     */
 
 
 

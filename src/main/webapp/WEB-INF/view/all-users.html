@@ -13,6 +13,7 @@
     <th>Lastname</th>
     <th>Age</th>
     <th>Email</th>
+    <th>Roles</th>
   </tr>
   <tr>
   <tr th:each="user : ${allUsers}">
@@ -21,6 +22,7 @@
     <td th:utext="${user.getLastname()}"></td>
     <td th:utext="${user.getAge()}"></td>
     <td th:utext="${user.getEmail()}"></td>
+    <td th:utext="${user.getRoles()}"></td>
     <td>
       <form th:method="DELETE" th:action="@{/admin/deleteUser(id=${user.getId()})}">
         <input type="submit" value="Delete">

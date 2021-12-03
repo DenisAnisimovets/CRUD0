@@ -25,12 +25,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.successUserHandler = successUserHandler;
     }
 
+    /*
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         // конфигурация для прохождения аутентификации
         auth.userDetailsService(userDetailsService);
     }
-    @Autowired
+     */
+
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()); // конфигурация для прохождения аутентификации
     }
